@@ -1,0 +1,3 @@
+npm install      >> for intall dependencies
+npm intall vue    >> for install vue
+npm intall vue-router    >> for install vue router
