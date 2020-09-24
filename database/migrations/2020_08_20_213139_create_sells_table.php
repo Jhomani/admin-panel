@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSectionItems extends Migration
+class CreateSellsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSectionItems extends Migration
      */
     public function up()
     {
-        Schema::table('articulos', function (Blueprint $table) {
-          $table->string('section');
+        Schema::create('sells', function (Blueprint $table) {
+            $table->id();
+            $table->integer("client_id");
+            $table->string("product_id");
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSectionItems extends Migration
      */
     public function down()
     {
-        Schema::table('articulos', function (Blueprint $table) {
-          $table->dropColumn('country_origin');    
-        });
+        Schema::dropIfExists('sells');
     }
 }

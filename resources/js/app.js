@@ -1,10 +1,19 @@
 require('./bootstrap');
-import router from './router.js';
-window.Vue = require('vue')
 
-Vue.component('mainapp', require('./components/mainapp.vue').default)
+window.Vue = require('vue');
+import router from './router'
+import store from './store'
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
+Vue.use(ViewUI);
+
+import common from './common'
+Vue.mixin(common)
+
+Vue.component('mainapp', require('./main.vue').default);
 
 const app = new Vue({
-  el: '#app',
-  router
-})
+    el: '#app',
+    router,
+    store
+});

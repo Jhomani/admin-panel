@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Articulo extends Model
+class Provider extends Model
 {
-  protected $table = 'articulos';
-    
+    //
 }

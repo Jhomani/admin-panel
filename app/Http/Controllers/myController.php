@@ -14,7 +14,7 @@ class myController extends Controller
     public function index()
     {
 			return response()->json([
-        'message' => 'we return only json'
+        'message' => "we return only json"
       ]);
     }
 
@@ -25,6 +25,9 @@ class myController extends Controller
      */
     public function create()
     {
+     return response()->json([
+      "msg" => "We should return only json"
+    ]);
     }
 
     /**

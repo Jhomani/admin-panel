@@ -2,6 +2,10 @@
 
 @section('app')
   <div id="app">
-    <mainapp/>
+    @if(Auth::check())
+      <mainapp :user="{{ Auth::user()}}"/>
+    @else
+      <mainapp :user="false"/>
+    @endif
   </div>
 @endsection

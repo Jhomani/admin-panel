@@ -1,57 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Articulo;
+use App\Product;
+use App\Http\Middleware\AdminCheck;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', 'AdminController@index');
+Route::any('{slug}', 'AdminController@index');
+Route::get('/user/logout', 'AdminController@logout');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::any('{slug}', function(){
-  return view('welcome');
+
+Route::prefix('app')->middleware([AdminCheck::class])->group(function(){
+  Route::post('/add-product', 'AdminController@addProduct');
+  Route::get('/get-products', 'AdminController@getProduct');
+  Route::post('/edit-product', 'AdminController@editProduct');
+  Route::post('/delete-product', 'AdminController@deleteProduct');
+  Route::post('/image-provider', 'AdminController@imageProvider');
+  Route::post('/create_user', 'AdminController@createUser');
+  Route::get('/get_users', 'AdminController@getUsers');
+  Route::post('/edit_user', 'AdminController@editUser');
+  Route::post('/admin_login', 'AdminController@adminLogin');
+
+  Route::post('/add_role', 'AdminController@addRole');
+  Route::get('/get_roles', 'AdminController@getRoles');
+  Route::post('/delete_role', 'AdminController@deleteRole');
+  Route::post('/edit_role', 'AdminController@editRole');
 });
 
-Route::get('/', 'myController@index');
 
-Route::get('/test', function () {
-  return view('welcome');
-});
+//Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/insert', function () {
-  DB::insert('insert into articulos (name, price, country_origin, watchs, section) values(?,?,?,?,?)',
-             ['Cerbeza', 82.5, 'Mexico', 'it is sweet', 'drinks']);
-});
-
-Route::get('/select', function () {
-  $results = DB::select("select * from articulos where id > ?", [0]);
-
-  foreach($results as $article) {
-    echo ($article->id);
-  }
-});
-
-Route::get('/update', function () {
-  DB::update("update articulos set name='Cerveza', country_origin='Mexico' where id = ?", [2]);
-});
-
-Route::get('/delete', function () {
-  DB::delete("delete from articulos where id=?", [2]);
-});
-
-Route::get('/leer', function () {
-  $articulos = Articulo::all();
-
-  foreach($articulos as $articulo){
-    echo ($articulo->name) . '<br>';
-  }
-});
